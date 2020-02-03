@@ -36,8 +36,8 @@ def test_uplad_form(request):
 
 class UploadViewSet(viewsets.ModelViewSet):
     permission_classes = (AllowAny,)
-    authentication_classes = (AllowAny,)
-    methods = ['POST']
+    # authentication_classes = (AllowAny,)
+    # methods = ['POST']
     serializer_class = TaskSerializer
     parser_classes = (MultiPartParser, FormParser,)
     queryset=Task.objects.all()

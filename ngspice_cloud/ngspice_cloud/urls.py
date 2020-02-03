@@ -21,11 +21,11 @@ from upload_app import views as upload_views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-# router.register(r'uploads', upload_views.UploadViewSet)
+router.register(r'uploads', upload_views.UploadViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('uploads/', include(router.urls)),
+    path('api/', include(router.urls)),
     path('hello/', auth_views.HelloView.as_view(), name='hello'),
     path('upload', upload_views.FileUploader.as_view(), name='filesUpload'),
     path('test/', upload_views.test_uplad_form, name='test_upload'),

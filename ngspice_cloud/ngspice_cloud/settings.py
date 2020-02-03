@@ -155,5 +155,5 @@ STATIC_URL = '/static/'
 
 # File Uploads
 
-MEDIA_URL = ''
+MEDIA_URL = '/_file/'
 MEDIA_ROOT = os.path.join("/tmp", "ngspice-cloud-temp")
