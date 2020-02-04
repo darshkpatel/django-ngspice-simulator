@@ -5,7 +5,7 @@ services:
     command: "python3 manage.py runserver 0.0.0.0:8000"
     # command: "gunicorn -t 120 --reload -b 0.0.0.0:8000 --log-level info ngspice_cloud.wsgi"
     ports:
-      - "5000"
+      - "8000:8000"
     volumes:
       - ./ngspice_cloud:/code
       - run_vol:/var/run
