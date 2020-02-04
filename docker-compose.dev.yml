@@ -3,6 +3,7 @@ services:
   web:
     build: ./ngspice_cloud/
     command: "python3 manage.py runserver 0.0.0.0:8000"
+    # command: "gunicorn -t 120 --reload -b 0.0.0.0:8000 --log-level info ngspice_cloud.wsgi"
     ports:
       - "5000"
     volumes:
@@ -22,13 +23,14 @@ services:
       - SQL_PASSWORD=hello_django
       - SQL_HOST=db
       - SQL_PORT=5432
+      - DEBUG=True
     links:
         - "redis:redis_cache"
         - "db:postgres"
 
   celery:
     build: ./ngspice_cloud/
-    command: celery -A app.celery worker -l info --concurrency=1
+    command: celery -A ngspice_cloud.celery worker -l info --concurrency=1
     links:
         - "redis:redis_cache"
         - "db:postgres"
