@@ -1,24 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import FullNavBar from './components/navbar'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "shards-ui/dist/css/shards.min.css"
+import { Container, Row, Col } from "shards-react";
+import UploadCard from './components/uploadCard'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <FullNavBar />
+    <Container>
+      <Row style={{justifyContent: "center", padding: "2%"}}>
+        <UploadCard/>
+      </Row>
+    </Container>
     </div>
   );
 }
