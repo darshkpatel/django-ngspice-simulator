@@ -18,8 +18,8 @@ from django.urls import path,include
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from user_auth_app import views as auth_views
 from upload_app import views as upload_views
+from simulator_app import views as simulator_views
 from rest_framework import routers
-
 router = routers.DefaultRouter()
 router.register(r'uploads', upload_views.UploadViewSet)
 
@@ -29,6 +29,7 @@ urlpatterns = [
     path('hello/', auth_views.HelloView.as_view(), name='hello'),
     path('upload', upload_views.FileUploader.as_view(), name='filesUpload'),
     path('test/', upload_views.test_uplad_form, name='test_upload'),
+    path('task/<str:task_id>', simulator_views.TaskResultView.as_view(), name='task_status'),
     path(r'api-token-auth/', obtain_jwt_token),
     path(r'api-token-refresh/', refresh_jwt_token),
 ]
