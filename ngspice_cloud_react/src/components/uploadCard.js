@@ -8,22 +8,21 @@ import {
 } from "shards-react";
 import './css/uploadCard.css';
 import { Container, Row } from "shards-react";
-
+import UploadBox from "./uploadBox.js"
 class UploadCard extends React.Component {
     render() {
         return (
             <Card className="cardStyle">
-                <CardHeader>Card header</CardHeader>
+                <CardHeader>Upload Netlist for Circuit</CardHeader>
                 <CardBody className="cardBodyStyle">
                     <Container>
 
-                        <CardTitle>Upload Netlist for Circuit</CardTitle>
                         <Row>
-                            <p>Upload Multiple files to process</p>
                         </Row>
-
+                        {/* {UploadBox()} */}
+                        <UploadBox />
                         <Row>
-                            <Button>Read more &rarr;</Button>
+
                         </Row>
                     </Container>
                 </CardBody>
