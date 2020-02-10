@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'rest_framework',
     'user_auth_app',
-    'upload_app'
+    'upload_app',
+    'simulator_app'
 
 
 ]
