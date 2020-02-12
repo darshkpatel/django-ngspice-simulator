@@ -1,12 +1,18 @@
 import React ,{Component} from 'react';
 import Dropzone from 'react-dropzone';
 import './css/uploadBox.css';
+
 class UploadBox extends Component {
   constructor() {
     super();
+
     this.onDrop = (files) => {
-      this.setState({files})
+      this.setState({files});
+      files.forEach(file => {
+        console.log(file);
+      });
     };
+
     this.state = {
       files: []
     };
@@ -29,6 +35,7 @@ class UploadBox extends Component {
             </div>
             <aside>
               <br />
+<hr></hr>
               <ul>{files}</ul>
             </aside>
           </section>

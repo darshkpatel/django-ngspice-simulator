@@ -9,6 +9,7 @@ import {
 import './css/uploadCard.css';
 import { Container, Row } from "shards-react";
 import UploadBox from "./uploadBox.js"
+import MyUploader from "./uploadBoxNew"
 class UploadCard extends React.Component {
     render() {
         return (
@@ -20,7 +21,8 @@ class UploadCard extends React.Component {
                         <Row>
                         </Row>
                         {/* {UploadBox()} */}
-                        <UploadBox />
+                        {/* <UploadBox /> */}
+                        <MyUploader />
                         <Row>
 
                         </Row>
