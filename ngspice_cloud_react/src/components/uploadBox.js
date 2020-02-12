@@ -1,29 +1,41 @@
-import React from 'react';
-import {useDropzone} from 'react-dropzone';
+import React ,{Component} from 'react';
+import Dropzone from 'react-dropzone';
+import './css/uploadBox.css';
+class UploadBox extends Component {
+  constructor() {
+    super();
+    this.onDrop = (files) => {
+      this.setState({files})
+    };
+    this.state = {
+      files: []
+    };
+  }
 
-function UploadBox(props) {
-  const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
-    disabled: true
-  });
+  render() {
+    const files = this.state.files.map(file => (
+      <li key={file.name}>
+        {file.name} - {file.size} bytes
+      </li>
+    ));
 
-  const files = acceptedFiles.map(file => (
-    <li key={file.name}>
-      {file.name} - {file.size} bytes
-    </li>
-  ));
-
-  return (
-    <section className="container">
-      <div {...getRootProps({className: 'dropzone disabled'})}>
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      </div>
-      <aside>
-        <h4>Files</h4>
-        <ul>{files}</ul>
-      </aside>
-    </section>
-  );
+    return (
+      <Dropzone onDrop={this.onDrop}>
+        {({getRootProps, getInputProps}) => (
+          <section className="container">
+            <div {...getRootProps({className: 'dropzone'})}>
+              <input {...getInputProps()} />
+              <p>Drag 'n' drop some files here, or click to select files</p>
+            </div>
+            <aside>
+              <br />
+              <ul>{files}</ul>
+            </aside>
+          </section>
+        )}
+      </Dropzone>
+    );
+  }
 }
 
 {/* <UploadBox /> */}
