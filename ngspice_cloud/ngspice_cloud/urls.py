@@ -30,8 +30,9 @@ urlpatterns = [
     path('upload', upload_views.FileUploader.as_view(), name='filesUpload'),
     path('test/', upload_views.test_uplad_form, name='test_upload'),
 
-    path('task/<str:task_id>', simulator_views.TaskResultView.as_view(), name='task_status'),
+    path('task/<uuid:task_id>', simulator_views.TaskResultView.as_view(), name='task_status'),
     path('task', simulator_views.ViewTasks.as_view(), name='view_tasks'),
+    path('task/<uuid:task_id>/start', simulator_views.TaskStartView.as_view(), name='task_start'),
     
     path(r'api-token-auth/', obtain_jwt_token),
     path(r'api-token-refresh/', refresh_jwt_token),
