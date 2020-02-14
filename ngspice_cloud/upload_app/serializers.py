@@ -6,7 +6,7 @@ from .models import spiceFile, Task
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = spiceFile
-        fields = ('file', 'upload_date',)
+        fields = ('file', 'upload_date','file_id','task')
 
 
 
@@ -16,7 +16,7 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Task
-        fields = ('id', 'task_time','files_set',)
+        fields = ('task_time','files_set','task_id')
 
     def create(self, validated_data):
         files_data = self.context.get('view').request.FILES.getlist("file")
