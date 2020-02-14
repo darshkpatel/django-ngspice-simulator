@@ -1,6 +1,6 @@
 from celery import shared_task, current_task
 from celery import states
-from helpers import ngspice_helpers, graph_plotter
+from .helpers import ngspice_helpers, graph_plotter
 from celery.exceptions import Ignore
 import traceback
 
@@ -19,7 +19,6 @@ def run_simulation(file_path):
     except Exception as e:
         current_task.update_state(state=states.FAILURE, meta={
             'exc_type': type(e).__name__,
-            'exc_message': traceback.format_exc().split('\n')
-            'custom': '...'})
+            'exc_message': traceback.format_exc().split('\n')})
         print('Exception Occured: ', e)
         raise Ignore()
