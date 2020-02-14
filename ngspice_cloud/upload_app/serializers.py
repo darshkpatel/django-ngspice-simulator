@@ -16,7 +16,7 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Task
-        fields = ('task_time','files_set','task_id')
+        fields = ('task_id','task_time','files_set')
 
     def create(self, validated_data):
         files_data = self.context.get('view').request.FILES.getlist("file")
@@ -27,7 +27,6 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
             spiceFile.objects.create(task=task, file=file_data)
             print('Created Object for:', file_data.name)
         return task
-
 
 
 

@@ -26,10 +26,13 @@ router.register(r'uploads', upload_views.UploadViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('hello/', auth_views.HelloView.as_view(), name='hello'),
+
     path('upload', upload_views.FileUploader.as_view(), name='filesUpload'),
     path('test/', upload_views.test_uplad_form, name='test_upload'),
+
     path('task/<str:task_id>', simulator_views.TaskResultView.as_view(), name='task_status'),
+    path('task', simulator_views.ViewTasks.as_view(), name='view_tasks'),
+    
     path(r'api-token-auth/', obtain_jwt_token),
     path(r'api-token-refresh/', refresh_jwt_token),
 ]
