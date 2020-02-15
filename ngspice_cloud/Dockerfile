@@ -35,3 +35,5 @@ RUN curl -fSL https://github.com/imr/ngspice/archive/ngspice-$NGSPICE_VERSION.ta
     && ./configure \
     && make \
     && make install
+
+RUN apk add --no-cache ghostscript imagemagick
