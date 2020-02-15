@@ -20,6 +20,9 @@ from user_auth_app import views as auth_views
 from upload_app import views as upload_views
 from simulator_app import views as simulator_views
 from rest_framework import routers
+from django.conf import settings
+from django.conf.urls.static import static
+
 router = routers.DefaultRouter()
 router.register(r'uploads', upload_views.UploadViewSet)
 
@@ -35,6 +38,8 @@ urlpatterns = [
     path('task/<uuid:task_id>/start', simulator_views.TaskStartView.as_view(), name='task_start'),
     path('celery/<uuid:task_id>', simulator_views.CeleryResultView.as_view(), name='celery_status'),
     
+    
     path(r'api-token-auth/', obtain_jwt_token),
     path(r'api-token-refresh/', refresh_jwt_token),
+    
 ]

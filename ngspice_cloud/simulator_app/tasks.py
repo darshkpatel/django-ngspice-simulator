@@ -17,15 +17,9 @@ def process_task(task_id):
         file_path = spicefile.file.path
         file_id = spicefile.file_id
         print("Processing ", file_path, file_id)
-        run_simulation.apply_async(kwargs={'file_path':file_path, 'file_id':file_id}, link_error=error_handler.s(), task_id=file_id)
-    return True
+        run_simulation.apply_async(kwargs={'file_path':file_path, 'file_id':file_id}, task_id=file_id)
+    return "Processing Files Asynchronously"
 
-
-@task
-def error_handler(uuid):
-    result = AsyncResult(uuid)
-    print('Task {0} raised exception: {1!r}\n{2!r}'.format(
-          uuid, result.traceback))
 
 @shared_task
 def run_simulation(file_path, file_id):
@@ -45,4 +39,4 @@ def run_simulation(file_path, file_id):
             'exc_type': type(e).__name__,
             'exc_message': traceback.format_exc().split('\n')})
         print('Exception Occured: ', type(e).__name__)
-        raise e
+        raise Ignore()

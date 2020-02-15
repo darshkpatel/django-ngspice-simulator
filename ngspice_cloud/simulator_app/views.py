@@ -51,7 +51,7 @@ class TaskStartView(APIView):
     def get(self, request, task_id):
 
         if isinstance(task_id, uuid.UUID):
-            group_task = process_task.delay(str(task_id))
+            group_task = process_task.apply_async(kwargs={'task_id':str(task_id)}, task_id=str(task_id))
             celery_result = AsyncResult(str(task_id))
             task = get_object_or_404(Task, task_id=task_id)
             serializer = TaskSerializer(task, many=False)

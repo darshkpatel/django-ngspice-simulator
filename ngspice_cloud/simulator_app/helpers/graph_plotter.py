@@ -24,7 +24,7 @@ def LoadPSFolder(file_id):
                 print("Opened Image ", ps_path)
                 file_path = os.path.join(path, item+'.png')
                 im.save(file_path)
-                image_objects.append(file_path)
+                image_objects.append(file_path.replace('/tmp/ngspice-cloud-temp/','/_files/'))
         return image_objects
     else:
         raise IOError('Path Not Directory')
