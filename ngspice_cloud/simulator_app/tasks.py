@@ -17,7 +17,7 @@ def process_task(task_id):
         file_path = spicefile.file.path
         file_id = spicefile.file_id
         print("Processing ", file_path, file_id)
-        run_simulation.apply_async(kwargs={'file_path':file_path}, link_error=error_handler.s(), task_id=file_id)
+        run_simulation.apply_async(kwargs={'file_path':file_path, 'file_id':file_id}, link_error=error_handler.s(), task_id=file_id)
     return True
 
 
@@ -28,15 +28,15 @@ def error_handler(uuid):
           uuid, result.traceback))
 
 @shared_task
-def run_simulation(file_path):
+def run_simulation(file_path, file_id):
     try:
         print("Processing File at: ", file_path)
         current_task.update_state(state='PROGRESS',
                 meta={'current_process': 'Started Processing File'})
-        output = ngspice_helpers.ExecNetlist(file_path)
+        output = ngspice_helpers.ExecNetlist(file_path, file_id)
         current_task.update_state(state='PROGRESS',
                 meta={'current_process': 'Processed Netlist, Loading Plots'})
-        graphs = graph_plotter.LoadPSFolder(file_path)
+        graphs = graph_plotter.LoadPSFolder(file_id)
         current_task.update_state(state='PROGRESS',
                 meta={'current_process': 'Loaded Plots'})
         return output, graphs
