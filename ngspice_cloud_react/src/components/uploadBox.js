@@ -4,8 +4,8 @@ import Dropzone from 'react-dropzone-uploader'
 import React, { Component } from 'react';
 
 class UploadBox extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     // specify upload params and url for your files
     this.getUploadParams = ({ meta }) => { return { url: 'http://localhost:8000/api/uploads/' } }
 
@@ -21,20 +21,30 @@ class UploadBox extends Component {
         console.log('Sending Start Request: ', task_id)
         this.StartTask(task_id);
       })
-      // allFiles.forEach(f => f.remove())
+  
+      allFiles.forEach(f => f.remove())
     }
+    console.log(props)
+
     this.StartTask = (TaskID) => {
       var xhr = new XMLHttpRequest()
       xhr.responseType = 'json';
       xhr.open('GET', 'http://localhost:8000/task/'+TaskID+'/start', true);
+      const self = this;
       xhr.onload  = function() {
-        var jsonResponse = xhr.response;
-        console.log(jsonResponse)
-     };
+   var jsonResponse = xhr.response;
+   // do something with jsonResponse
+   self.props.updateMainState({showResultCard: true})
+
+};
       xhr.send()
       console.log('Sent Request for ', TaskID)
     }
   }
+
+
+  
+
   render() {
     return (
 

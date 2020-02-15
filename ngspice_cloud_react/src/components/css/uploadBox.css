@@ -29,6 +29,11 @@
     transition: border .24s ease-in-out;
   }
   
+.fileList{
+  color: #333333;
+  list-style-type:none;
+}
+
   .dzu-dropzone {
     width: 100%;
     min-height: 120px;

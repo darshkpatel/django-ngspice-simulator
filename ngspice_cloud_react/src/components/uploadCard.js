@@ -18,7 +18,7 @@ class UploadCard extends React.Component {
 
                         <Row>
                         </Row>
-                        <UploadBox />
+                        <UploadBox updateMainState={this.props.updateMainState}/>
                         <Row>
 
                         </Row>
