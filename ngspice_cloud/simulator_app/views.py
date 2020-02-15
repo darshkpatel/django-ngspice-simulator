@@ -28,6 +28,21 @@ class TaskResultView(APIView):
             return Response(response_data)
         else:
             raise ValidationError('Invalid uuid format')
+class CeleryResultView(APIView):
+    permission_classes = (AllowAny,)
+    methods = ['GET']
+
+    def get(self, request, task_id):
+
+        if isinstance(task_id, uuid.UUID):
+            celery_result = AsyncResult(str(task_id))
+            response_data = {
+                'state': celery_result.state,
+                'details': celery_result.info
+            }
+            return Response(response_data)
+        else:
+            raise ValidationError('Invalid uuid format')
 
 class TaskStartView(APIView):
     permission_classes = (AllowAny,)
@@ -41,8 +56,8 @@ class TaskStartView(APIView):
             task = get_object_or_404(Task, task_id=task_id)
             serializer = TaskSerializer(task, many=False)
             response_data = {
-                'state': celery_result.state,
-                'details': serializer.data
+                'state': group_task.state,
+                'details': serializer.data,
             }
             return Response(response_data)
         else:

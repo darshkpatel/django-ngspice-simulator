@@ -33,6 +33,7 @@ urlpatterns = [
     path('task/<uuid:task_id>', simulator_views.TaskResultView.as_view(), name='task_status'),
     path('task', simulator_views.ViewTasks.as_view(), name='view_tasks'),
     path('task/<uuid:task_id>/start', simulator_views.TaskStartView.as_view(), name='task_start'),
+    path('celery/<uuid:task_id>', simulator_views.CeleryResultView.as_view(), name='celery_status'),
     
     path(r'api-token-auth/', obtain_jwt_token),
     path(r'api-token-refresh/', refresh_jwt_token),
