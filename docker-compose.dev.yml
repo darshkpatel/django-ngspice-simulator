@@ -34,6 +34,15 @@ services:
     links:
         - "redis:redis_cache"
         - "db:postgres"
+    environment:
+        - PYTHONUNBUFFERED=true
+        - SQL_ENGINE=django.db.backends.postgresql
+        - SQL_DATABASE=ngspice_cloud_db
+        - SQL_USER=darsh
+        - SQL_PASSWORD=passpass
+        - SQL_HOST=db
+        - SQL_PORT=5432
+        - DEBUG=True
     volumes:
       - ./ngspice_cloud:/code
       - run_vol:/var/run
