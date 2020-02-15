@@ -23,8 +23,10 @@ def ExecNetlist(filepath):
     if os.path.isfile(filepath):
         try:
             SetOutput(filepath)
+            print('will run ngSpice command')
             proc = subprocess.Popen(['ngspice','-ab',filepath,'-o','output'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             stdout,stderr = proc.communicate()
+            print('Ran ngSpice command')
 
             if  bool(stderr) or (proc.returncode!=0 and proc.returncode!=1):
 
