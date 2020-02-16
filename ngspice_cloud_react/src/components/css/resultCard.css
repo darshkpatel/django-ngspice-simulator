@@ -2,9 +2,14 @@
     min-width: 70%;
 
 }
+.cardContainer {
+    overflow: auto;
+
+}
 
 .cardBodyStyle {
     min-height: 50%;
-    height: 50%;
+    max-height: 300px;
+    white-space: pre-line;
     
 }
