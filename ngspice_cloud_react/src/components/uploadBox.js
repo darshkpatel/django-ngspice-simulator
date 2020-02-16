@@ -16,7 +16,6 @@ class UploadBox extends Component {
     // receives array of files that are done uploading when submit button is clicked
     this.handleSubmit = (files, allFiles) => {
       // console.log(files.map(f => f.xhr))
-      const self = this;
 
       files.forEach(file => {
         console.log(file.xhr)
@@ -43,15 +42,14 @@ class UploadBox extends Component {
       xhr.responseType = 'json';
       xhr.open('GET', 'http://localhost:8000/api/task/' + TaskID + '/start', true);
 
-      const self = this;
-      xhr.onload = function () {
-        var jsonResponse = xhr.response;
-        var newFiles = self.state.files.concat(jsonResponse)
-        //  self.setState({'files':newFiles})
-        //  self.props.updateMainState({'showResultCard': true, 'files':self.state.files})
+      // const self = this;
+      // xhr.onload = function () {
+      //   var jsonResponse = xhr.response;
+      //   //  self.setState({'files':newFiles})
+      //   //  self.props.updateMainState({'showResultCard': true, 'files':self.state.files})
 
 
-      };
+      // };
       xhr.send()
       console.log('Sent Request for ', TaskID)
     }
