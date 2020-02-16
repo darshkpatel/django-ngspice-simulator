@@ -5,7 +5,7 @@ import {
     CardBody,
 } from "shards-react";
 import './css/resultCard.css';
-import { Collapse, Container, Row, Button, Col } from "shards-react";
+import { Collapse, Container, Row, Button } from "shards-react";
 import SimpleStorage from "react-simple-storage";
 
 class ResultCard extends React.Component {
@@ -31,7 +31,9 @@ class ResultCard extends React.Component {
             .then(result => result.json())
             .then(result => this.setState({ pollResult: result }))
     }
-
+    _handleDelete(id){
+        this.props._handleDelete(id);
+    }
     render() {
         console.log('result card: ', this.props.jobDetails)
         console.log('Poll Result State: ', this.state)
@@ -46,15 +48,20 @@ class ResultCard extends React.Component {
         }
         return (
             <Card className="cardStyle" >
-                <SimpleStorage parent={this} prefix={this.props.jobDetails.fileName}/>
+                <SimpleStorage parent={this} prefix={this.props.jobDetails.fileID} />
 
-                <CardHeader>Results for <strong>{this.props.jobDetails.fileName}</strong> </CardHeader>
+                <CardHeader>
+                    <span>Results for <strong>{this.props.jobDetails.fileName}</strong></span>
+                    <button type="button" className="close" aria-label="Close" onClick={this._handleDelete.bind(this, this.props.jobDetails.fileID)}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </CardHeader>
                 <CardBody className="cardBodyStyle">
                     <Container>
                         <Row style={{ justifyContent: "space-between", flexDirection: 'row', alignItems: 'stretch' }}>
-                           <h5>Status:</h5><strong>{status}</strong> {'\u00A0'}{'\u00A0'}
+                            <h5>Status:</h5><strong>{status}</strong> {'\u00A0'}{'\u00A0'}
                             {this.state.pollResult.state === 'SUCCESS' &&
-                                <Button outline size='sm' onClick={this.toggle} >View Output</Button>
+                                <Button outline size='sm' onClick={this.toggle} >Show Output</Button>
                             }
                         </Row>
                         <Row>
@@ -65,7 +72,10 @@ class ResultCard extends React.Component {
                                         <p>{JSON.stringify(this.state.pollResult.details[0])}</p>
                                     </div>
                                 }
-                                {this.state.pollResult.details.length !== 0 &&
+                                {typeof this.state.pollResult.details[1] != "undefined"  
+                                        && this.state.pollResult.details[1] != null  
+                                        && this.state.pollResult.details[1].length != null  
+                                        && this.state.pollResult.details[1].length > 0 &&
                                     <div>
                                         <h5>Graphs</h5>
                                         {this.state.pollResult.details[1].map(path => (<img key={path} src={path} alt="Graph Plot" />))}

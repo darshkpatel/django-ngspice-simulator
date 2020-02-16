@@ -19,6 +19,7 @@ class App extends Component {
       files: []
     }
     this.updateMainState = this.updateMainState.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   updateMainState = (state) => {
@@ -27,12 +28,17 @@ class App extends Component {
     //  localStorage.setItem('files', JSON.stringify(state.files)) 
     }
 
+    delete(id){
+      this.setState(prevState => ({
+          files: prevState.files.filter(file => file.fileID !== id )
+      }));
+  }
 
   render() {
     console.log("Current main state", this.state)
     const resultCards = this.state.files.map(file => (
-      <div style={{ padding: "2%" }}>
-      <ResultCard jobDetails={file} key={file.fileName}/>
+      <div style={{ padding: "2%" }} key={file.fileID}>
+      <ResultCard jobDetails={file} key={file.fileID} _handleDelete={this.delete}/>
       </div>
     ));
 
