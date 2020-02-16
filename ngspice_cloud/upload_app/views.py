@@ -15,23 +15,6 @@ from rest_framework import viewsets
 from .models import Task
 
 
-def test_uplad_form(request):
-    return HttpResponse('''
-    <!doctype html>
-    <title>Test Endpoint</title>
-    <h1>Test Endpoint</h1>
-    <h3>Upload Any file</h3>
-    <form method="POST" action="/upload" enctype="multipart/form-data">
-      <input type=file name=file accept="*" multiple>
-      <input type=submit value=Upload>
-    </form>
-    ''')
-
-
-
-# class UploadViewSet(ModelViewSet):
-#     serializer_class = TaskSerializer
-#     queryset = Task.objects.all()
 
 
 class UploadViewSet(viewsets.ModelViewSet):
