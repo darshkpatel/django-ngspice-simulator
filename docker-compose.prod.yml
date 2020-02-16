@@ -1,0 +1,100 @@
+version: '3'
+services:
+  nginx:
+    image: nginx
+    ports:
+      - 8000:80
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - tmp_vol:/tmp
+      - ./ngspice_cloud_react/build:/usr/share/nginx/html
+    depends_on:
+      - django
+  django:
+    build: ./ngspice_cloud/
+    # command: "python3 manage.py runserver 0.0.0.0:8000"
+    command: "gunicorn -w 3 -t 120 --reload -b 0.0.0.0:8000 --log-level info ngspice_cloud.wsgi"
+    ports:
+      - 8000
+    volumes:
+      - ./ngspice_cloud:/code
+      - run_vol:/var/run
+      - cache_vol:/var/cache
+      - tmp_vol:/tmp
+    depends_on:
+        - redis
+        - db
+        - celery
+    environment:
+      - PYTHONUNBUFFERED=true
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=ngspice_cloud_db
+      - SQL_USER=darsh
+      - SQL_PASSWORD=passpass
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DEBUG=False
+    links:
+        - "redis:redis_cache"
+        - "db:postgres"
+
+  celery:
+    build: ./ngspice_cloud/
+    command: celery -A ngspice_cloud.celery worker -l info --concurrency=10
+    links:
+        - "redis:redis_cache"
+        - "db:postgres"
+    environment:
+        - PYTHONUNBUFFERED=true
+        - SQL_ENGINE=django.db.backends.postgresql
+        - SQL_DATABASE=ngspice_cloud_db
+        - SQL_USER=darsh
+        - SQL_PASSWORD=passpass
+        - SQL_HOST=db
+        - SQL_PORT=5432
+        - DEBUG=False
+    volumes:
+      - ./ngspice_cloud:/code
+      - run_vol:/var/run
+      - cache_vol:/var/cache
+      - tmp_vol:/tmp
+    depends_on:
+        - redis
+        - db
+    deploy:
+      replicas: 3
+
+
+        
+  redis:
+      image: "redis:alpine"
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+        - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+  #     ports:
+  #       - '6379:6379'
+      volumes:
+          - ./redis_data:/data
+
+  db:
+    image: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    environment:
+        - POSTGRES_USER=darsh
+        - POSTGRES_PASSWORD=passpass
+        - POSTGRES_DB=ngspice_cloud_db
+
+volumes:
+  run_vol:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+  cache_vol:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+  tmp_vol:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
