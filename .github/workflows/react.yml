@@ -1,0 +1,17 @@
+name: React CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        working-directory: './ngspice_cloud_react/'
+        run: |
+          yarn install
+      - name: Run tests
+        working-directory: './ngspice_cloud_react/'
+        run: |
+          yarn test --watchAll=false
