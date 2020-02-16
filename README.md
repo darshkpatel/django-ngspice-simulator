@@ -58,7 +58,7 @@ Nginx reverse proxy is used to bind backend and frontend routes and also load ba
 
 * ``` sudo docker-compose -f docker-compose.prod.yml run --rm django ./manage.py migrate --noinput ```
 
-* ``` sudo docker-compose -f docker-compose.prod.yml up ```
+* ``` sudo docker-compose -f docker-compose.prod.yml up --scale django=2 --scale celery=3```
 
 
 ### Backend Endpoint Screenshots
