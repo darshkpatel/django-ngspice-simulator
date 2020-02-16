@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`navbar test navbar should match snapshot 1`] = `<navbar />`;
