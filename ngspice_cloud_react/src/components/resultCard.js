@@ -18,7 +18,7 @@ class ResultCard extends React.Component {
         this.setState({ collapse: !this.state.collapse });
     }
     componentDidMount() {
-        this.timer = setInterval(() => this.getItems(), 5000);
+        this.timer = setInterval(() => this.getItems(), 1000);
     }
 
     componentWillUnmount() {
