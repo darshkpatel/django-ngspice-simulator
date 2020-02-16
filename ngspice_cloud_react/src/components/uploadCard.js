@@ -13,7 +13,7 @@ class UploadCard extends React.Component {
         return (
             <Card className="cardStyle">
                 <CardHeader>Upload Netlist for Circuit</CardHeader>
-                <CardBody className="uploadCardBodyStyle">
+                <CardBody className="uploadCardBodyStyle1">
                     <Container>
 
                         <Row>
