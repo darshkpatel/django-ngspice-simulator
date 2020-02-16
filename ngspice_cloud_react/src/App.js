@@ -31,7 +31,9 @@ class App extends Component {
   render() {
     console.log("Current main state", this.state)
     const resultCards = this.state.files.map(file => (
-      <ResultCard jobDetails={file} key={file.fileName} />
+      <div style={{ padding: "2%" }}>
+      <ResultCard jobDetails={file} key={file.fileName}/>
+      </div>
     ));
 
 

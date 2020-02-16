@@ -52,9 +52,9 @@ class ResultCard extends React.Component {
                 <CardBody className="cardBodyStyle">
                     <Container>
                         <Row style={{ justifyContent: "space-between", flexDirection: 'row', alignItems: 'stretch' }}>
-                           <h5>Status:</h5><strong>{status}</strong>
+                           <h5>Status:</h5><strong>{status}</strong> {'\u00A0'}{'\u00A0'}
                             {this.state.pollResult.state === 'SUCCESS' &&
-                                <Button onClick={this.toggle} >View Output</Button>
+                                <Button outline size='sm' onClick={this.toggle} >View Output</Button>
                             }
                         </Row>
                         <Row>
