@@ -41,7 +41,7 @@ class UploadBox extends Component {
     this.StartTask = (TaskID) => {
       var xhr = new XMLHttpRequest()
       xhr.responseType = 'json';
-      xhr.open('GET', 'http://localhost:8000/task/' + TaskID + '/start', true);
+      xhr.open('GET', 'http://localhost:8000/api/task/' + TaskID + '/start', true);
 
       const self = this;
       xhr.onload = function () {

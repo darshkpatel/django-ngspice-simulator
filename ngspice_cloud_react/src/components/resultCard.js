@@ -21,7 +21,7 @@ class ResultCard extends React.Component {
       }
       
       getItems() {
-        fetch('http://localhost:8000/celery/'+this.props.jobDetails.fileID)
+        fetch('http://localhost:8000/api/celery/'+this.props.jobDetails.fileID)
           .then(result =>result.json())
           .then(result => this.setState({ pollResult: result }))
       }
@@ -49,6 +49,10 @@ class ResultCard extends React.Component {
     <div>
     <h5>Output</h5>
     <p>{JSON.stringify(this.state.pollResult.details[0])}</p>
+    </div>
+}
+{   this.state.pollResult.details.length!=0 &&
+    <div>
     <h5>Graphs</h5>
     {this.state.pollResult.details[1].map(path=>(<img key={path} src={path}/>))}
     </div>
