@@ -1,6 +1,9 @@
 name: React CI
 
-on: [push]
+on:
+  push:
+    paths:
+    - './ngspice_cloud_react/*'
 
 jobs:
   build:
