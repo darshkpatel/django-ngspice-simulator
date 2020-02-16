@@ -43,6 +43,7 @@ class ResultCard extends React.Component {
             case 'UNFETCHED': status = 'Waiting to Fetch'; break;
             case 'SUCCESS': status = (this.state.pollResult.details[0] == null) ? 'Error Processing File' : 'Completed Processing'; clearInterval(this.timer); break;
             case 'PENDING': status = 'Processing Pending'; break;
+            case 'PROGRESS': status = 'Processing File'; break;
             default: status = 'Error Occured'; clearInterval(this.timer); console.log('state:', this.state.pollResult); break;
         }
         return (

@@ -47,8 +47,6 @@ class UploadBox extends Component {
       //   var jsonResponse = xhr.response;
       //   //  self.setState({'files':newFiles})
       //   //  self.props.updateMainState({'showResultCard': true, 'files':self.state.files})
-
-
       // };
       xhr.send()
       console.log('Sent Request for ', TaskID)
