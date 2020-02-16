@@ -14,4 +14,4 @@ jobs:
       - name: Run tests
         working-directory: './ngspice_cloud_react/'
         run: |
-          yarn test
+          yarn test --watchAll=false
