@@ -8,6 +8,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - tmp_vol:/tmp
       - ./ngspice_cloud_react/build:/usr/share/nginx/html
+      - ./ngspice_cloud/static:/usr/share/nginx/static
     depends_on:
       - django
   django:
