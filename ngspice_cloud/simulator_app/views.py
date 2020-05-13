@@ -11,6 +11,8 @@ from rest_framework import status
 from upload_app.serializers import TaskSerializer
 from rest_framework.exceptions import ValidationError
 from simulator_app.tasks import process_task
+
+
 class TaskResultView(APIView):
     permission_classes = (AllowAny,)
     methods = ['GET']
@@ -28,6 +30,8 @@ class TaskResultView(APIView):
             return Response(response_data)
         else:
             raise ValidationError('Invalid uuid format')
+
+
 class CeleryResultView(APIView):
     permission_classes = (AllowAny,)
     methods = ['GET']
@@ -44,6 +48,7 @@ class CeleryResultView(APIView):
         else:
             raise ValidationError('Invalid uuid format')
 
+
 class TaskStartView(APIView):
     permission_classes = (AllowAny,)
     methods = ['GET']
@@ -51,7 +56,8 @@ class TaskStartView(APIView):
     def get(self, request, task_id):
 
         if isinstance(task_id, uuid.UUID):
-            group_task = process_task.apply_async(kwargs={'task_id':str(task_id)}, task_id=str(task_id))
+            group_task = process_task.apply_async(
+                kwargs={'task_id': str(task_id)}, task_id=str(task_id))
             celery_result = AsyncResult(str(task_id))
             task = get_object_or_404(Task, task_id=task_id)
             serializer = TaskSerializer(task, many=False)
@@ -63,6 +69,7 @@ class TaskStartView(APIView):
         else:
             raise ValidationError('Invalid uuid format')
 
+
 class ViewTasks(APIView):
     permission_classes = (AllowAny,)
     methods = ['GET']
@@ -70,4 +77,4 @@ class ViewTasks(APIView):
     def get(self, request):
         task_list = Task.objects.all()
         serializer = TaskSerializer(task_list, many=True)
-        return Response({"tasks":serializer.data})
+        return Response({"tasks": serializer.data})
