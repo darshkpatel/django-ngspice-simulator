@@ -29,16 +29,14 @@ router.register(r'uploads', upload_views.UploadViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # path('upload', upload_views.FileUploader.as_view(), name='filesUpload'),
-
     path('api/task/<uuid:task_id>', simulator_views.TaskResultView.as_view(), name='task_status'),
     path('api/task', simulator_views.ViewTasks.as_view(), name='view_tasks'),
     path('api/task/<uuid:task_id>/start', simulator_views.TaskStartView.as_view(), name='task_start'),
     path('api/celery/<uuid:task_id>', simulator_views.CeleryResultView.as_view(), name='celery_status'),
-    
+
     path('api/', include(router.urls)),
-    
+
     path(r'api-token-auth/', obtain_jwt_token),
     path(r'api-token-refresh/', refresh_jwt_token),
-    
+
 ]
