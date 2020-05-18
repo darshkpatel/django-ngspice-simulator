@@ -1,11 +1,9 @@
-from celery import shared_task, current_task, task
+from celery import shared_task, current_task
 from celery import states
 from .helpers import ngspice_helpers, graph_plotter
 from celery.exceptions import Ignore
 import traceback
 from upload_app.models import spiceFile
-from celery import group
-from celery.result import AsyncResult
 
 
 @shared_task
@@ -18,7 +16,8 @@ def process_task(task_id):
         file_id = spicefile.file_id
         print("Processing ", file_path, file_id)
         run_simulation.apply_async(
-            kwargs={'file_path': file_path, 'file_id': file_id}, task_id=file_id)
+            kwargs={'file_path': file_path, 'file_id': file_id},
+            task_id=file_id)
     return "Processing Files Asynchronously"
 
 
@@ -26,11 +25,18 @@ def process_task(task_id):
 def run_simulation(file_path, file_id):
     try:
         print("Processing File at: ", file_path)
-        current_task.update_state(state='PROGRESS',
-                                  meta={'current_process': 'Started Processing File'})
+        current_task.update_state(
+            state='PROGRESS',
+            meta={'current_process': 'Started Processing File'}
+        )
+
         output = ngspice_helpers.ExecNetlist(file_path, file_id)
-        current_task.update_state(state='PROGRESS',
-                                  meta={'current_process': 'Processed Netlist, Loading Plots'})
+
+        current_task.update_state(
+            state='PROGRESS',
+            meta={'current_process': 'Processed Netlist, Loading Plots'}
+        )
+
         graphs = graph_plotter.LoadPSFolder(file_id)
         current_task.update_state(state='PROGRESS',
                                   meta={'current_process': 'Loaded Plots'})
