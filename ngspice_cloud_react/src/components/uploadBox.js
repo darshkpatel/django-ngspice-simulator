@@ -8,7 +8,7 @@ class UploadBox extends Component {
     super(props);
     this.state = { 'files': [] }
     // specify upload params and url for your files
-    this.getUploadParams = ({ meta }) => { return { url: 'http://localhost:8000/api/uploads/' } }
+    this.getUploadParams = ({ meta }) => { return { url: '/api/uploads/' } }
 
     // called every time a file's `status` changes
     this.handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
@@ -40,7 +40,7 @@ class UploadBox extends Component {
     this.StartTask = (TaskID) => {
       var xhr = new XMLHttpRequest()
       xhr.responseType = 'json';
-      xhr.open('GET', 'http://localhost:8000/api/task/' + TaskID + '/start', true);
+      xhr.open('GET', '/api/task/' + TaskID + '/start', true);
 
       // const self = this;
       // xhr.onload = function () {
