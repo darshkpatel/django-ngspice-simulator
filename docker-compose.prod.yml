@@ -30,8 +30,8 @@ services:
       - PYTHONUNBUFFERED=true
       - SQL_ENGINE=django.db.backends.postgresql
       - SQL_DATABASE=ngspice_cloud_db
-      - SQL_USER=darsh
-      - SQL_PASSWORD=passpass
+      - "SQL_USER=${POSTGRES_USER}"
+      - "SQL_PASSWORD=${POSTGRES_PASSWORD}"
       - SQL_HOST=db
       - SQL_PORT=5432
       - DEBUG=False
@@ -49,8 +49,8 @@ services:
         - PYTHONUNBUFFERED=true
         - SQL_ENGINE=django.db.backends.postgresql
         - SQL_DATABASE=ngspice_cloud_db
-        - SQL_USER=darsh
-        - SQL_PASSWORD=passpass
+        - "SQL_USER=${POSTGRES_USER}"
+        - "SQL_PASSWORD=${POSTGRES_PASSWORD}"
         - SQL_HOST=db
         - SQL_PORT=5432
         - DEBUG=False
@@ -82,8 +82,8 @@ services:
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
     environment:
-        - POSTGRES_USER=darsh
-        - POSTGRES_PASSWORD=passpass
+        - "POSTGRES_USER=${POSTGRES_USER}"
+        - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
         - POSTGRES_DB=ngspice_cloud_db
 
 volumes:
