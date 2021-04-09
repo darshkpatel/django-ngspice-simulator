@@ -20,7 +20,7 @@ Jinja2==2.11.3
 kombu==4.6.7
 MarkupSafe==1.1.1
 packaging==20.3
-Pillow==7.1.0
+Pillow==8.1.1
 psycopg2-binary==2.8.4
 PyJWT==1.7.1
 pyparsing==2.4.7
